@@ -70,7 +70,7 @@ def generate_launch_description():
     
     use_rviz_arg = DeclareLaunchArgument(
         "use_rviz",
-        default_value="false",
+        default_value="true",
         description="Launch RViz for visualization (default: false, launch separately)"
     )
     
@@ -154,7 +154,7 @@ def generate_launch_description():
         executable="parameter_bridge",
         name="bridge_lidar3d_points",
         arguments=[
-            "/robot/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked"
+            "/lidar_3d/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked"
         ],
         output="screen",
         parameters=[{

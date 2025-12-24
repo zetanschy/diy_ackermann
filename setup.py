@@ -28,6 +28,8 @@ setup(
         'console_scripts': [
             'lidar_test = diy_ackermann.lidar_test:main',
             'go_to_goal = diy_ackermann.go_to_goal:main',
+            'circle_driver = diy_ackermann.circle_driver:main',
+            'obstacle_avoidance = diy_ackermann.obstacle_avoidance:main',
         ],
     },
 )
