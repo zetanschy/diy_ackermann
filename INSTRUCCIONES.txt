@@ -1,0 +1,105 @@
+================================================================================
+DIY ACKERMANN ROBOT - PAQUETE PARA ESTUDIANTES
+================================================================================
+
+Este es tu paquete base para trabajar en las actividades de la clase.
+
+--------------------------------------------------------------------------------
+CONTENIDO DEL PAQUETE
+--------------------------------------------------------------------------------
+
+✓ Modelo URDF completo del robot Ackermann (sin sensores)
+✓ Launch files para Gazebo y RViz
+✓ Dos mundos de simulación:
+  - ackermann_world.sdf (mundo básico)
+  - circuito_obstaculos.sdf (para tarea de evasión)
+✓ Configuración de RViz
+
+--------------------------------------------------------------------------------
+COMANDOS BÁSICOS
+--------------------------------------------------------------------------------
+
+1. COMPILAR EL PAQUETE:
+   cd ~/ros2_ws
+   colcon build --packages-select diy_ackermann --symlink-install
+   source install/setup.bash
+
+2. VER EL MODELO (solo visualización):
+   ros2 launch diy_ackermann rviz.launch.py
+
+3. SIMULAR EN GAZEBO:
+   Terminal 1:
+   ros2 launch diy_ackermann simulation.launch.py
+   
+   Terminal 2 (RViz):
+   ros2 launch diy_ackermann rviz.launch.py use_sim_time:=true
+   
+   Terminal 3 (Control):
+   ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+4. PROBAR MUNDO DE OBSTÁCULOS:
+   ros2 launch diy_ackermann simulation.launch.py world:=circuito_obstaculos.sdf
+
+--------------------------------------------------------------------------------
+ARCHIVOS IMPORTANTES PARA MODIFICAR
+--------------------------------------------------------------------------------
+
+📄 urdf/diy_ackermann.urdf.xacro
+   - Aquí agregarás los sensores (LiDAR 2D, LiDAR 3D)
+   - Busca los comentarios "TODO"
+
+📄 launch/simulation.launch.py
+   - Aquí añadirás los bridges para los sensores
+   - Busca los comentarios "TODO"
+
+📄 diy_ackermann/*.py (crear nuevos)
+   - Aquí crearás tus scripts de control (cuadrado, evasión, etc.)
+
+📄 setup.py
+   - Aquí registrarás tus nuevos scripts en entry_points
+
+--------------------------------------------------------------------------------
+ACTIVIDADES
+--------------------------------------------------------------------------------
+
+Consulta los archivos GUIA_CLASE.md y TAREA_CASA.md en el paquete 
+ackermann_robot para las instrucciones completas.
+
+RESUMEN:
+- Clase: Añadir LiDAR 2D y script de prueba
+- Tarea 1: Añadir LiDAR 3D + movimiento en cuadrado + video
+- Tarea 2: Evasión de obstáculos en circuito + video
+
+--------------------------------------------------------------------------------
+VERIFICACIÓN DEL URDF
+--------------------------------------------------------------------------------
+
+Antes de lanzar en Gazebo, verifica que tu URDF es correcto:
+
+check_urdf install/diy_ackermann/share/diy_ackermann/urdf/diy_ackermann.urdf.xacro
+
+--------------------------------------------------------------------------------
+TIPS
+--------------------------------------------------------------------------------
+
+• Usa --symlink-install para compilaciones más rápidas
+• Verifica topics con: ros2 topic list
+• Verifica transformaciones con: ros2 run tf2_tools view_frames
+• Para debuggear sensores: ros2 topic echo /scan --once
+• Si algo falla, mata todos los procesos: killall -9 gzserver gzclient rviz2
+
+--------------------------------------------------------------------------------
+ESTRUCTURA DE TRABAJO RECOMENDADA
+--------------------------------------------------------------------------------
+
+1. Hacer cambios en URDF o scripts
+2. Compilar: colcon build --packages-select diy_ackermann
+3. Source: source install/setup.bash
+4. Probar primero en RViz (más rápido)
+5. Luego probar en Gazebo
+6. Debuggear y repetir
+
+================================================================================
+¡Buena suerte! 🚀
+================================================================================
+
