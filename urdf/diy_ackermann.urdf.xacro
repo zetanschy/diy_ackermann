@@ -339,12 +339,19 @@
 
   <!-- LiDAR 3D - Tarea -->
   <joint type="fixed" name="lidar_joint_gazebo">
-    <origin xyz="0 0 0.035" rpy="0 0 0"/>
+    <origin xyz="0 0 0.095" rpy="0 0 0"/>
     <child link="lidar_link_gazebo" />
     <parent link="chassis"/>
   </joint>
   
   <link name="lidar_link_gazebo">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.15" radius="0.075"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
     <inertial>
       <mass value="0.1"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
@@ -352,7 +359,7 @@
     <collision name="collision-base">
       <origin xyz="0 0 0.0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.07" radius="0.04"/>
+        <cylinder length="0.15" radius="0.075"/>
       </geometry>
     </collision>
   </link>
@@ -364,7 +371,7 @@
   <gazebo reference="lidar_link_gazebo">
     <sensor name='ouster_lidar' type='gpu_lidar'>
       <topic>/robot/lidar</topic>
-      <gz_frame_id>chassis</gz_frame_id>
+      <gz_frame_id>lidar_link_gazebo</gz_frame_id>
       <update_rate>10</update_rate>
       <lidar>
         <scan>
@@ -382,8 +389,8 @@
           </vertical>
         </scan>
         <range>
-          <min>0.08</min>
-          <max>100.0</max>
+          <min>0.1</min>
+          <max>30.0</max>
           <resolution>0.01</resolution>
         </range>
         <noise type="gaussian">
@@ -494,6 +501,9 @@
   <gazebo reference="lidar_link">
     <material>Gazebo/Red</material>
   </gazebo>
+  
+  <gazebo reference="lidar_link_gazebo">
+    <material>Gazebo/Blue</material>
+  </gazebo>
 
 </robot>
-

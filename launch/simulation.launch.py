@@ -146,14 +146,20 @@ def generate_launch_description():
         output="screen"
     )
     
-    bridge_lidar3d_scan = Node(
+    
+    # ROS-Gazebo Bridge for 3D lidar PointCloud2
+    # Gazebo publishes point cloud to /robot/lidar/points when topic is /robot/lidar
+    bridge_lidar3d_points = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
-        name="bridge_lidar3d_scan",
+        name="bridge_lidar3d_points",
         arguments=[
-            "/robot/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"
+            "/robot/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked"
         ],
-        output="screen"
+        output="screen",
+        parameters=[{
+            "use_sim_time": True
+        }]
     )
 
     # ROS-Gazebo Bridge for joint_states (bidirectional)
@@ -201,10 +207,10 @@ def generate_launch_description():
         gazebo_sim,
         robot_state_publisher_node,
         spawn_robot_node,
+        bridge_lidar3d_points,
         bridge_cmd_vel,
         bridge_odom,
         bridge_lidar,
-        bridge_lidar3d_scan,
         bridge_joint_states,
         bridge_clock,
         rviz_node
